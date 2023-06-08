@@ -26,10 +26,9 @@ Kelas / Angkatan :
 
 st.write("Data ini diambil dari https://www.kaggle.com/")
 
-data_bulanan_ei = pd.read_excel(
-    "https://github.com/Dzalhaqi/pa-mlops/blob/main/dataset/bulanan-ekspor-impor.xlsx", engine='openpyxl')
+data_bulanan_ei = pd.read_csv(
+    "https://github.com/Dzalhaqi/pa-mlops/blob/main/bulanan-ekspor-impor.csv", sep=";")
 
-AgGrid(data_bulanan_ei)
+st.subheader("Data Bulanan Ekspor Impor Indonesia")
 
-
-
+st.dataframe(data_bulanan_ei)
