@@ -1,10 +1,11 @@
 import pandas as pd
 import streamlit as st
-from st_aggrid import AgGrid
+import plotly.graph_objects as go
+import plotly.io as pio
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-st.balloons()
+# st.balloons()
 
 st.title(""" Data Export Import Indonesia""")
 
@@ -14,7 +15,7 @@ Politeknik Elektronika Negeri Surabaya
 
 Nama Kelompok :
 1. Moch Toriqul Muchlisin (3321600001)
-2. Rifda Quratul'Ain (3321600012)
+2. Rifda Quratul 'Ain (3321600012)
 3. Muhammad Dzalhaqi (3321600023)
 
 Jurusan :   
@@ -24,10 +25,97 @@ Kelas / Angkatan :
 2 / 2021
 """)
 
+
 st.write("Data ini diambil dari https://www.kaggle.com/")
 
-data_bulanan_ei = pd.read_csv(
-    "https://github.com/Dzalhaqi/pa-mlops/blob/main/bulanan-ekspor-impor.csv", sep=";")
+url_data = 'https://raw.githubusercontent.com/Dzalhaqi/pa-mlops/main/dataset/bulanan-ekspor-impor.csv'
+
+data_bulanan_ei = None
+month = None
+
+with st.sidebar:
+  st.subheader("Filter Controls Configuration")
+  month = ["All", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
+           "Agustus", "September", "Oktober", "November", "Desember"]
+  year = [i for i in range(2019, 2024)]
+
+  show_filter = st.radio("Filter Dataframe", ("No", "Yes"), index=0)
+
+  if show_filter == "Yes":
+    col1, col2 = st.columns(2)
+
+    with col1:
+      choosen_month = st.selectbox("Select month", month)
+
+    with col2:
+      choosen_year = st.selectbox("Select year", year)
+
+    if choosen_month == "All":
+      data_bulanan_ei = pd.read_csv(f"{url_data}")
+      data_bulanan_ei["Bulan-Tahun"] = pd.to_datetime(
+          data_bulanan_ei["Bulan-Tahun"])
+      data_bulanan_ei = data_bulanan_ei[data_bulanan_ei["Bulan-Tahun"].dt.year == choosen_year]
+      data_bulanan_ei["Bulan-Tahun"] = data_bulanan_ei["Bulan-Tahun"].dt.date
+
+    else:
+      data_bulanan_ei = pd.read_csv(f"{url_data}")
+      data_bulanan_ei["Bulan-Tahun"] = pd.to_datetime(
+          data_bulanan_ei["Bulan-Tahun"])
+      data_bulanan_ei = data_bulanan_ei[data_bulanan_ei["Bulan-Tahun"].dt.year == choosen_year]
+      data_bulanan_ei = data_bulanan_ei[data_bulanan_ei["Bulan-Tahun"].dt.month ==
+                                        month.index(choosen_month)]
+      data_bulanan_ei["Bulan-Tahun"] = data_bulanan_ei["Bulan-Tahun"].dt.date
+
+  else:
+    data_bulanan_ei = pd.read_csv(f"{url_data}")
+    data_bulanan_ei["Bulan-Tahun"] = pd.to_datetime(
+        data_bulanan_ei["Bulan-Tahun"])
+    data_bulanan_ei["Bulan-Tahun"] = data_bulanan_ei["Bulan-Tahun"].dt.date
+
+# showing plot 
+
+if show_filter == "Yes":
+  st.write(f"{type(data_bulanan_ei['Bulan-Tahun'][0])}")
+  year = data_bulanan_ei[data_bulanan_ei["Bulan-Tahun"].apply(lambda x: x.year) == choosen_year]
+
+  surplus_data = year[year["Neraca Perdagangan"] > 0]
+  defisit_data = year[year["Neraca Perdagangan"] < 0]
+
+
+fig = go.Figure()
+
+# Add bar traces for surplus and deficit data
+# fig.add_trace(go.Bar(
+#     x=surplus_data20['Bulan-Tahun'].dt.month,
+#     y=surplus_data20['Neraca Perdagangan'],
+#     name='Surplus',
+#     marker_color='darkgreen'
+# ))
+
+# if len(defisit_data20) > 0:
+#     fig.add_trace(go.Bar(
+#         x=defisit_data20['Bulan-Tahun'].dt.month,
+#         y=defisit_data20['Neraca Perdagangan'],
+#         name='Defisit',
+#         marker_color='yellow'
+#     ))
+
+# # Customize the layout
+# fig.update_layout(
+#     title='Bar Plot Neraca Perdagangan 2020',
+#     xaxis_title='Bulan',
+#     yaxis_title='Nilai Neraca Perdagangan',
+#     xaxis=dict(
+#         tickmode='array',
+#         tickvals=list(range(1, 13)),
+#         ticktext=['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+#     )
+# )
+
+# # Show the plot
+# # pio.show(fig)
+
+# st.plotly_chart(fig)
 
 st.subheader("Data Bulanan Ekspor Impor Indonesia")
 
