@@ -26,7 +26,8 @@ Kelas / Angkatan :
 """)
 
 
-st.write("Data ini diambil dari https://www.kaggle.com/")
+st.write("""
+Data ini diambil dari https://www.bps.go.id/exim/""")
 
 url_data = 'https://raw.githubusercontent.com/Dzalhaqi/pa-mlops/main/dataset/bulanan-ekspor-impor.csv'
 
@@ -72,51 +73,50 @@ with st.sidebar:
         data_bulanan_ei["Bulan-Tahun"])
     data_bulanan_ei["Bulan-Tahun"] = data_bulanan_ei["Bulan-Tahun"].dt.date
 
-# showing plot 
-
-if show_filter == "Yes":
-  st.write(f"{type(data_bulanan_ei['Bulan-Tahun'][0])}")
-  year = data_bulanan_ei[data_bulanan_ei["Bulan-Tahun"].apply(lambda x: x.year) == choosen_year]
-
-  surplus_data = year[year["Neraca Perdagangan"] > 0]
-  defisit_data = year[year["Neraca Perdagangan"] < 0]
-
-
-fig = go.Figure()
-
-# Add bar traces for surplus and deficit data
-# fig.add_trace(go.Bar(
-#     x=surplus_data20['Bulan-Tahun'].dt.month,
-#     y=surplus_data20['Neraca Perdagangan'],
-#     name='Surplus',
-#     marker_color='darkgreen'
-# ))
-
-# if len(defisit_data20) > 0:
-#     fig.add_trace(go.Bar(
-#         x=defisit_data20['Bulan-Tahun'].dt.month,
-#         y=defisit_data20['Neraca Perdagangan'],
-#         name='Defisit',
-#         marker_color='yellow'
-#     ))
-
-# # Customize the layout
-# fig.update_layout(
-#     title='Bar Plot Neraca Perdagangan 2020',
-#     xaxis_title='Bulan',
-#     yaxis_title='Nilai Neraca Perdagangan',
-#     xaxis=dict(
-#         tickmode='array',
-#         tickvals=list(range(1, 13)),
-#         ticktext=['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
-#     )
-# )
-
-# # Show the plot
-# # pio.show(fig)
-
-# st.plotly_chart(fig)
-
+# Show dataframe
 st.subheader("Data Bulanan Ekspor Impor Indonesia")
 
 st.dataframe(data_bulanan_ei)
+
+# showing plot 
+if show_filter == "Yes":
+  year_data = data_bulanan_ei[data_bulanan_ei["Bulan-Tahun"].apply(lambda x: x.year) == choosen_year]
+
+  surplus_data = year_data[year_data["Neraca Perdagangan"] > 0]
+  defisit_data = year_data[year_data["Neraca Perdagangan"] < 0]
+
+fig = go.Figure()
+
+fig.add_trace(go.Bar(
+    # x=defisit_data['Bulan-Tahun'].dt.month,
+    x=defisit_data['Bulan-Tahun'].apply(lambda x: x.month),
+    y=defisit_data['Neraca Perdagangan'],
+    name='Defisit',
+    marker_color='yellow'
+))
+
+if len(surplus_data) > 0:
+    fig.add_trace(go.Bar(
+        # x=surplus_data['Bulan-Tahun'].dt.month,
+        x=surplus_data['Bulan-Tahun'].apply(lambda x: x.month),
+        y=surplus_data['Neraca Perdagangan'],
+        name='Surplus',
+        marker_color='darkgreen'
+    ))
+
+# Customize the layout
+fig.update_layout(
+    title='Bar Plot Neraca Perdagangan 2020',
+    xaxis_title='Bulan',
+    yaxis_title='Nilai Neraca Perdagangan',
+    xaxis=dict(
+        tickmode='array',
+        tickvals=list(range(1, 13)),
+        ticktext=['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+    )
+)
+
+# Show the plot
+# pio.show(fig)
+
+st.plotly_chart(fig)
