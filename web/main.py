@@ -74,100 +74,106 @@ with st.sidebar:
         data_bulanan_ei["Bulan-Tahun"])
     data_bulanan_ei["Bulan-Tahun"] = data_bulanan_ei["Bulan-Tahun"].dt.date
 
-# Show dataframe
-st.subheader("Data Bulanan Ekspor Impor Indonesia")
+tab_eda, tab_model = st.tabs(["EDA", "Model"])
 
-st.dataframe(data_bulanan_ei)
+with tab_eda:
+  # Show dataframe
+  st.subheader("Data Bulanan Ekspor Impor Indonesia")
 
-# showing plot 
-if show_filter == "Yes":
-  year_data = data_bulanan_ei[data_bulanan_ei["Bulan-Tahun"].apply(lambda x: x.year) == choosen_year]
+  st.dataframe(data_bulanan_ei)
 
-  surplus_data = year_data[year_data["Neraca Perdagangan"] > 0]
-  defisit_data = year_data[year_data["Neraca Perdagangan"] < 0]
+  # showing plot 
+  if show_filter == "Yes":
+    year_data = data_bulanan_ei[data_bulanan_ei["Bulan-Tahun"].apply(lambda x: x.year) == choosen_year]
 
-  fig = go.Figure()
+    surplus_data = year_data[year_data["Neraca Perdagangan"] > 0]
+    defisit_data = year_data[year_data["Neraca Perdagangan"] < 0]
 
-  fig.add_trace(go.Bar(
-      x=defisit_data['Bulan-Tahun'].apply(lambda x: x.month),
-      y=defisit_data['Neraca Perdagangan'],
-      name='Defisit',
-      marker_color='yellow',
-      hovertemplate=
-      '<b>Tahun %s</b><br>' % choosen_year +
-      '<i>Nilai Neraca Perdagangan</i>: $%{y:.2f} <br>' +
-      '<i>Bulan</i>: ' + defisit_data['Bulan-Tahun'].apply(lambda x: x.strftime('%B')) + '<br>'
-  ))
+    fig = go.Figure()
 
-  if len(surplus_data) > 0:
-      fig.add_trace(go.Bar(
-          x=surplus_data['Bulan-Tahun'].apply(lambda x: x.month),
-          y=surplus_data['Neraca Perdagangan'],
-          name='Surplus',
-          marker_color='darkgreen',
-          hovertemplate=
-          '<b>Tahun %s</b><br>' % choosen_year +
-          '<i>Nilai Neraca Perdagangan</i>: $%{y:.2f} <br>' +
-          '<i>Bulan</i>: ' + surplus_data['Bulan-Tahun'].apply(lambda x: x.strftime('%B')) + '<br>'
-      ))
+    fig.add_trace(go.Bar(
+        x=defisit_data['Bulan-Tahun'].apply(lambda x: x.month),
+        y=defisit_data['Neraca Perdagangan'],
+        name='Defisit',
+        marker_color='yellow',
+        hovertemplate=
+        '<b>Tahun %s</b><br>' % choosen_year +
+        '<i>Nilai Neraca Perdagangan</i>: $%{y:.2f} <br>' +
+        '<i>Bulan</i>: ' + defisit_data['Bulan-Tahun'].apply(lambda x: x.strftime('%B')) + '<br>'
+    ))
 
-  # Customize the layout
-  fig.update_layout(
-      title=f"Bar Plot Neraca Perdagangan {choosen_year}",
-      xaxis_title='Bulan',
-      yaxis_title='Nilai Neraca Perdagangan',
-      xaxis=dict(
-          tickmode='array',
-          tickvals=list(range(1, 13)),
-          ticktext=['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
-      )
-  )
+    if len(surplus_data) > 0:
+        fig.add_trace(go.Bar(
+            x=surplus_data['Bulan-Tahun'].apply(lambda x: x.month),
+            y=surplus_data['Neraca Perdagangan'],
+            name='Surplus',
+            marker_color='darkgreen',
+            hovertemplate=
+            '<b>Tahun %s</b><br>' % choosen_year +
+            '<i>Nilai Neraca Perdagangan</i>: $%{y:.2f} <br>' +
+            '<i>Bulan</i>: ' + surplus_data['Bulan-Tahun'].apply(lambda x: x.strftime('%B')) + '<br>'
+        ))
 
-  st.plotly_chart(fig)
+    # Customize the layout
+    fig.update_layout(
+        title=f"Bar Plot Neraca Perdagangan {choosen_year}",
+        xaxis_title='Bulan',
+        yaxis_title='Nilai Neraca Perdagangan',
+        xaxis=dict(
+            tickmode='array',
+            tickvals=list(range(1, 13)),
+            ticktext=['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+        )
+    )
 
-else:
-  # show all surplus and defisit data in every year
-  surplus_data = data_bulanan_ei[data_bulanan_ei["Neraca Perdagangan"] > 0]
-  defisit_data = data_bulanan_ei[data_bulanan_ei["Neraca Perdagangan"] < 0]
+    st.plotly_chart(fig)
 
-  fig = go.Figure()
+  else:
+    # show all surplus and defisit data in every year
+    surplus_data = data_bulanan_ei[data_bulanan_ei["Neraca Perdagangan"] > 0]
+    defisit_data = data_bulanan_ei[data_bulanan_ei["Neraca Perdagangan"] < 0]
 
-  fig.add_trace(go.Bar(
-      x=defisit_data['Bulan-Tahun'].apply(lambda x: x.year),
-      y=defisit_data['Neraca Perdagangan'],
-      name='Defisit',
-      marker_color='yellow',
-      hovertemplate=
-      '<b>Tahun %{x}</b><br>' +
-      '<i>Nilai Neraca Perdagangan</i>: $%{y:.2f} <br>' +
-      '<i>Bulan</i>: ' + defisit_data['Bulan-Tahun'].apply(lambda x: x.strftime('%B')) + '<br>'
-  ))
+    fig = go.Figure()
 
-  if len(surplus_data) > 0:
-      fig.add_trace(go.Bar(
-          x=surplus_data['Bulan-Tahun'].apply(lambda x: x.year),
-          y=surplus_data['Neraca Perdagangan'],
-          name='Surplus',
-          marker_color='darkgreen',
-          hovertemplate=
-          '<b>Tahun %{x}</b><br>' +
-          '<i>Nilai Neraca Perdagangan</i>: $%{y:.2f} <br>' +
-          '<i>Bulan</i>: ' + defisit_data['Bulan-Tahun'].apply(lambda x: x.strftime('%B')) + '<br>'
-      ))
+    fig.add_trace(go.Bar(
+        x=defisit_data['Bulan-Tahun'].apply(lambda x: x.year),
+        y=defisit_data['Neraca Perdagangan'],
+        name='Defisit',
+        marker_color='yellow',
+        hovertemplate=
+        '<b>Tahun %{x}</b><br>' +
+        '<i>Nilai Neraca Perdagangan</i>: $%{y:.2f} <br>' +
+        '<i>Bulan</i>: ' + defisit_data['Bulan-Tahun'].apply(lambda x: x.strftime('%B')) + '<br>'
+    ))
+
+    if len(surplus_data) > 0:
+        fig.add_trace(go.Bar(
+            x=surplus_data['Bulan-Tahun'].apply(lambda x: x.year),
+            y=surplus_data['Neraca Perdagangan'],
+            name='Surplus',
+            marker_color='darkgreen',
+            hovertemplate=
+            '<b>Tahun %{x}</b><br>' +
+            '<i>Nilai Neraca Perdagangan</i>: $%{y:.2f} <br>' +
+            '<i>Bulan</i>: ' + defisit_data['Bulan-Tahun'].apply(lambda x: x.strftime('%B')) + '<br>'
+        ))
 
 
-  # Customize the layout
-  fig.update_layout(
-      title=f"Bar Plot Neraca Perdagangan {year[0]} - {year[-1]}",
-      xaxis_title='Tahun',
-      yaxis_title='Nilai Neraca Perdagangan',
-      xaxis=dict(
-          tickmode='array',
-          tickvals=list(range(2019, 2024)),
-          ticktext=['2019', '2020', '2021', '2022', '2023']
-      )
-  )
+    # Customize the layout
+    fig.update_layout(
+        title=f"Bar Plot Neraca Perdagangan {year[0]} - {year[-1]}",
+        xaxis_title='Tahun',
+        yaxis_title='Nilai Neraca Perdagangan',
+        xaxis=dict(
+            tickmode='array',
+            tickvals=list(range(2019, 2024)),
+            ticktext=['2019', '2020', '2021', '2022', '2023']
+        )
+    )
 
-  st.plotly_chart(fig)
+    st.plotly_chart(fig)
+
+with tab_model:
+  st.write("Coming Soon")
 
 
