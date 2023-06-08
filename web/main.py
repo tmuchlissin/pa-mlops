@@ -1,4 +1,35 @@
+import pandas as pd
 import streamlit as st
+from st_aggrid import AgGrid
 
-st.title("Hello World")
-  
+st.set_option('deprecation.showPyplotGlobalUse', False)
+
+st.balloons()
+
+st.title(""" Data Export Import Indonesia""")
+
+st.info(""" 
+
+Politeknik Elektronika Negeri Surabaya
+
+Nama Kelompok :
+1. Moch Toriqul Muchlisin (3321600001)
+2. Rifda Quratul'Ain (3321600012)
+3. Muhammad Dzalhaqi (3321600023)
+
+Jurusan :   
+Sains Data Terapan 
+
+Kelas / Angkatan :        
+2 / 2021
+""")
+
+st.write("Data ini diambil dari https://www.kaggle.com/")
+
+data_bulanan_ei = pd.read_excel(
+    "https://github.com/Dzalhaqi/pa-mlops/blob/main/dataset/bulanan-ekspor-impor.xlsx", engine='openpyxl')
+
+AgGrid(data_bulanan_ei)
+
+
+
