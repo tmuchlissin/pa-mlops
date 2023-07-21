@@ -1,4 +1,3 @@
-<br/>
 <p align="center">
   <h3 align="center">Analysist Dashboard of Export Import Data of Indonesian Commodity Trade</h3>
 
@@ -9,7 +8,17 @@
   </p>
 </p>
 
-![Downloads](https://img.shields.io/github/downloads/dzalhaqi/pa-mlops/total) ![Contributors](https://img.shields.io/github/contributors/dzalhaqi/pa-mlops?color=dark-green) ![Forks](https://img.shields.io/github/forks/dzalhaqi/pa-mlops?style=social) ![Issues](https://img.shields.io/github/issues/dzalhaqi/pa-mlops) ![License](https://img.shields.io/github/license/dzalhaqi/pa-mlops) 
+
+
+<p align="center">
+  <p align="center">
+    <img src="https://img.shields.io/github/downloads/dzalhaqi/pa-mlops/total"/>
+    <img src="https://img.shields.io/github/contributors/dzalhaqi/pa-mlops?color=dark-green"/>
+    <img src="https://img.shields.io/github/forks/dzalhaqi/pa-mlops?style=social"/>
+    <img src="https://img.shields.io/github/issues/dzalhaqi/pa-mlops"/>
+    <img src="https://img.shields.io/github/license/dzalhaqi/pa-mlops"/>
+  </p>
+</p>
 
 ## Table Of Contents
 
