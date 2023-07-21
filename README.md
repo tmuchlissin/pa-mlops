@@ -102,7 +102,7 @@ pip install -r requirements.txt
 5. Get into web directory and run the app
 
 ```sh
-cd web && streamlit run app.py
+cd web && streamlit run main.py
 ```
 
 ## License
