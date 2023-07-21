@@ -3,14 +3,9 @@
   <h3 align="center">Analysist Dashboard of Export Import Data of Indonesian Commodity Trade</h3>
 
   <p align="center">
-    Machine Learninf Ops Final Project - Electronic Engineerng Polytechnic Institute of Surabaya
-    <br/>
-    <br/>
-    <a href="https://github.com/dzalhaqi/pa-mlops"><strong>Explore the docs »</strong></a>
-    <br/>
+    Machine Learning Ops Final Project - Electronic Engineering Polytechnic Institute of Surabaya
     <br/>
     <a href="https://export-import-analysis.streamlit.app/">View Demo</a>
-    .
   </p>
 </p>
 
@@ -30,9 +25,15 @@
 
 ## About The Project
 
-![image](https://github.com/Dzalhaqi/pa-mlops/assets/52716202/2422a7e0-dca3-4f18-a814-178456d64b53)
+### Screenshot
+![image](https://github.com/Dzalhaqi/pa-mlops/assets/52716202/d56f6c8e-3b24-4473-874e-1a84cf289552)
+![image](https://github.com/Dzalhaqi/pa-mlops/assets/52716202/037926ab-a4f7-4613-8eea-8b6348d1eaed)
+![image](https://github.com/Dzalhaqi/pa-mlops/assets/52716202/2a91c1d8-cd81-4fb8-ad97-223dbbcd19a1)
+![image](https://github.com/Dzalhaqi/pa-mlops/assets/52716202/94e74dc3-6b1e-4917-9021-fb19799aa153)
+![image](https://github.com/Dzalhaqi/pa-mlops/assets/52716202/9f1c5cc6-c6a5-45bd-a676-725fd253b673)
 
-This is Final Project at Machine Learning Ops Subject. 
+
+This is Final Project at Machine Learning Ops Subject. The goals of this project is to build analysist of Indonesia export import comodity data using interactive dashboard with Fuzzy Time Series Method 
 
 ## Built With
 
