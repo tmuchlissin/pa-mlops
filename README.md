@@ -1,5 +1,5 @@
 <p align="center">
-  <h3 align="center">Analysist Dashboard of Export Import Data of Indonesian Commodity Trade</h3>
+  <h3 align="center">Indonesia's Export-Import Analysis and Forecasting Dashboard using Streamlit</h3>
 
   <p align="center">
     Machine Learning Ops Final Project - Electronic Engineering Polytechnic Institute of Surabaya
