@@ -121,11 +121,11 @@ Distributed under the MIT License. See [LICENSE](https://github.com/dzalhaqi/pa-
 ## Authors
 
 * **Muhammad Dzalhaqi** - *Applied Data Science Student (EEPIS)* - [Muhammad Dzalhaqi](https://github.com/dzalhaqi/) - *Build dash app*
-* **Much. Toriqul Muchlisin** - *Applied Data Science Student (EEPIS)* - [Much. Toriqul Muchlisin](https://github.com/tmuchlissin) - *Build model*
-* **Rifda Quratul 'Ain** - *Applied Data Science Student (EEPIS)* - [Rifda Quratul 'Ain](https://github.com/riffuda) - *Build analytical report*
+* **Much. Toriqul Muchlisin** - *Applied Data Science Student (EEPIS)* - [Moch. Toriqul Muchlisin](https://github.com/tmuchlissin) - *Build model*
+* **Rifda Quratul 'Ain** - *Applied Data Science Student (EEPIS)* - [Rifda Qurrotul 'Ain](https://github.com/riffuda) - *Build analytical report*
 
 ## Acknowledgements
 
 * [Muhammad Dzalhaqi](https://github.com/dzalhaqi/)
 * [Moch. Toriqul Muhclissin](https://github.com/tmuchlissin)
-* [Rifda Quratul 'Ain](https://github.com/riffuda)
+* [Rifda Qurrotul 'Ain](https://github.com/riffuda)
